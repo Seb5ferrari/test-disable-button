@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css";
+import Home from "./pages/Home";
+import Devices from "./pages/Devices";
+import Discover from "./pages/Discover";
+import NavBar from "./components/NavBar";
+import Box from "@mui/material/Box";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+
+
+const AppLayout = () => {
+  return (
+    <>
+      <NavBar />
+      <Box className={{ Box }}>
+        <Outlet />
+      </Box>
+    </>
+  );
+};
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "/devices",
+        element: <Devices />
+      },
+      {
+        path: "/discover",
+        element: <Discover />
+      }
+    ]
+  }
+]);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
+    </>
   );
 }
 
