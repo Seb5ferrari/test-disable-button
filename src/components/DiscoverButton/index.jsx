@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 
@@ -27,10 +27,7 @@ const DiscoverButton = () => {
     const disabledUntil = new Date().getTime() + 20000;
     localStorage.setItem('disabledUntil', disabledUntil);
 
-    Axios({
-
-      "url": "http://localhost:8000"
-    })
+    axios.get("http://localhost:8000/discover")
       .then((response) => {
         console.log(response.data);
         setIsDisabled(false);
