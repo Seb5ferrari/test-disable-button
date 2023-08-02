@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 
 const DiscoverButton = () => {
+
   let [isDisabled, setIsDisabled] = useState(false);
   const [btnText, setBtnText] = useState("Hello World!");
 
@@ -20,24 +21,28 @@ const DiscoverButton = () => {
   }, []);
 
  
-  async function btnHandler() {
+  function btnHandler() {
     setBtnText("Bye World...!");
     setIsDisabled(true);
     const disabledUntil = new Date().getTime() + 20000;
     localStorage.setItem('disabledUntil', disabledUntil);
 
     Axios({
-      url: "https://jsonplaceholder.typicode.com/posts"
+
+      "url": "http://localhost:8000"
     })
       .then((response) => {
         console.log(response.data);
+        setIsDisabled(false);
+        setBtnText("Hello World!");
+        localStorage.clear();
       })
       .catch((error) => {
         console.log(error);
+        setIsDisabled(false);
+        setBtnText("Hello World!");
+        localStorage.clear();
       });
-      setIsDisabled(false);
-      setBtnText("Hello World!");
-      localStorage.clear();
   }
 
   return (
